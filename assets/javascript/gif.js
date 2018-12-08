@@ -4,6 +4,7 @@ $(document).ready(function() {
 
   function displayCar() {
     var brand = $(this).attr("data-name");
+    console.log("display");
     var queryURL =
       "https://api.giphy.com/v1/gifs/search?q=" +
       brand +
@@ -13,13 +14,15 @@ $(document).ready(function() {
 
     $.ajax({ url: queryURL, method: "GET" }).then(function(response) {
       console.log(response.data);
-      for (var i = 0; i < response.data.lenght; i++) {
+
+      for (var i = 0; i < response.data.length; i++) {
         var carImage = $("<img>");
         carImage.attr("src", response.data[i].images.downsized_still.url);
         carImage.attr(
           "data-still",
           response.data[i].images.downsized_still.url
         );
+
         carImage.attr("data-animate", response.data[i].images.downsized.url);
         carImage.attr("data-state", "still");
         carImage.attr("class", "gif");
@@ -49,7 +52,7 @@ $(document).ready(function() {
       .trim();
 
     brands.push(brand);
-
+    console.log(brands);
     renderButtons();
     document.getElementById("addButtonSearch").reset();
   });
